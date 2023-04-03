@@ -5,6 +5,11 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CubeTranslate : MonoBehaviour
 {
+    [SerializeField] private Vector3 _finalPos;
+    [SerializeField] int _speed;
+    [SerializeField] Animator _animator = null;
+    [SerializeField] bool isPlaced = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -12,10 +17,23 @@ public class CubeTranslate : MonoBehaviour
         {
             TranslateObject();
         }
+
+        if (transform.position == _finalPos && isPlaced == true)
+        {
+            _animator.enabled = true;
+        }
     }
 
     void TranslateObject()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(2.5f, 0.5f, 2.5f), 10 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _finalPos, _speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Cube"))
+        {
+            isPlaced = true;
+        }
     }
 }

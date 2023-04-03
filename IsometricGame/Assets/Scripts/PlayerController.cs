@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor.Rendering;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -36,14 +33,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Movement
-        if (Input.anyKey)
+        if (Input.GetAxis("Horizontal") > .1 || Input.GetAxis("Horizontal") < -.1 || Input.GetAxis("Vertical") > .1 || Input.GetAxis("Vertical") < -.1)
         {
             Move();
-        }
-
-        if (Input.GetAxis("Horizontal") > .5 || Input.GetAxis("Horizontal") < -.5 || Input.GetAxis("Vertical") > .5 || Input.GetAxis("Vertical") < -.5)
-        {
-            _animator.SetBool("Move", true);
         }
         else
         {
@@ -53,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        // Animation
+        _animator.SetBool("Move", true);
+
         // Movement speed
         Vector3 rightMovement = right * moveSpeed * Input.GetAxis("Horizontal");
         Vector3 upMovement = forward * moveSpeed * Input.GetAxis("Vertical");
