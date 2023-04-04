@@ -15,12 +15,7 @@ public class CubeTranslate : MonoBehaviour
         if (isPlaced == true)
         {
             TranslateObject();
-        }
-
-        if (transform.position == _finalPos && isPlaced == true)
-        {
             GetComponent<Rigidbody>().useGravity = false;
-            _animator.enabled = true;
         }
     }
 
