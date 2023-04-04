@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class CubeTranslate : MonoBehaviour
 {
@@ -13,13 +12,14 @@ public class CubeTranslate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.K))
+        if (isPlaced == true)
         {
             TranslateObject();
         }
 
         if (transform.position == _finalPos && isPlaced == true)
         {
+            GetComponent<Rigidbody>().useGravity = false;
             _animator.enabled = true;
         }
     }
