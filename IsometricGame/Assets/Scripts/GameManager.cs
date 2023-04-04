@@ -34,29 +34,22 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    private void Start()
+    [SerializeField] private GameObject _player = null;
+    [SerializeField] private GameObject _cube = null;
+    [SerializeField] private Animator _transi = null;
+
+    public void Restart()
     {
-        _beginPlayerPos.transform.position = _currentPlayerPos.transform.position;
+        _player.GetComponent<PlayerController>().Reset();
+        _cube.GetComponent<CubeTranslate>().Reset();
+        _transi.SetTrigger("Transi");
     }
 
-    #region Salle 1
-    [SerializeField] private GameObject _beginPlayerPos;
-    [SerializeField] private GameObject _currentPlayerPos;
-
-    private void FixedUpdate()
+    private void Update()
     {
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Rewind();
+            Restart();
         }
     }
-
-    public void Rewind()
-    {
-
-    }
-    #endregion
-
-
-
 }
