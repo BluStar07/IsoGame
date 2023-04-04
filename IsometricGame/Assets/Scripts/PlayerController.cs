@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator _animator = null;
 
+    private Vector3 _startPos;
+
     // Use this for initialization
     void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         // Initial speed
         moveSpeed = walkSpeed;
 
+        _startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -63,6 +66,32 @@ public class PlayerController : MonoBehaviour
         // Smoothly move the new position
         transform.forward = heading;
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime);
+    }
+
+    public void Respawn()
+    {
+        transform.position = _startPos;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //if (other.CompareTag("DeathZone"))
+        //{
+        //    StartCoroutine(DeathCountdown());
+        //}
+
+        GameManager.Instance.Restart();
+    }
+
+    public void Reset()
+    {
+        StartCoroutine(DeathCountdown());
+    }
+
+    public IEnumerator DeathCountdown()
+    {
+        yield return new WaitForSeconds(1f);
+        Respawn();
     }
 }
 

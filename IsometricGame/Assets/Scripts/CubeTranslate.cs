@@ -9,6 +9,14 @@ public class CubeTranslate : MonoBehaviour
     [SerializeField] Animator _animator = null;
     [SerializeField] bool isPlaced = false;
 
+    private Vector3 _startPos;
+
+
+    private void Start()
+    {
+        _startPos = transform.position;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -31,4 +39,21 @@ public class CubeTranslate : MonoBehaviour
             isPlaced = true;
         }
     }
+
+    public void Reset()
+    {
+        StartCoroutine(DeathCountdown());
+    }
+
+    public IEnumerator DeathCountdown()
+    {
+        yield return new WaitForSeconds(1f);
+        Respawn();
+    }
+
+    public void Respawn()
+    {
+        transform.position = _startPos;
+    }
+
 }
