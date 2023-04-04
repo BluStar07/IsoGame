@@ -75,12 +75,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("DeathZone"))
-        //{
-        //    StartCoroutine(DeathCountdown());
-        //}
+        if (other.CompareTag("DeathZone"))
+        {
+            GameManager.Instance.Restart();
+        }
 
-        GameManager.Instance.Restart();
     }
 
     public void Reset()

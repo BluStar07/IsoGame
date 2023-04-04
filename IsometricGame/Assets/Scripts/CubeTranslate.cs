@@ -9,20 +9,12 @@ public class CubeTranslate : MonoBehaviour
     [SerializeField] Animator _animator = null;
     [SerializeField] bool isPlaced = false;
 
-    private Vector3 _startPos;
-
-
-    private void Start()
-    {
-        _startPos = transform.position;
-    }
-
     // Update is called once per frame
     void Update()
     {
         if (isPlaced == true)
         {
-            TranslateObject();
+            StartCoroutine(PlaceCube());
             GetComponent<Rigidbody>().useGravity = false;
         }
     }
@@ -48,12 +40,13 @@ public class CubeTranslate : MonoBehaviour
     public IEnumerator DeathCountdown()
     {
         yield return new WaitForSeconds(1f);
-        Respawn();
+        GetComponent<ResetCube>().Respawn();
     }
 
-    public void Respawn()
+    public IEnumerator PlaceCube()
     {
-        transform.position = _startPos;
+        TranslateObject();
+        yield return new WaitForSeconds(1f);
+        GetComponent<ResetCube>().Respawn();
     }
-
 }
