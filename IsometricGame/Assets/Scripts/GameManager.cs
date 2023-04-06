@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,18 +34,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _cube = null;
     [SerializeField] private Animator _transi = null;
 
-    public void Restart()
-    {
-        _player.GetComponent<PlayerController>().Reset();
-        _cube.GetComponent<CubeTranslate>().Reset();
-        _transi.SetTrigger("Transi");
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             Restart();
         }
+    }
+
+    public void Restart()
+    {
+        _player.GetComponent<PlayerController>().Reset();
+        if (_cube != null)
+        {
+            _cube.GetComponent<CubeTranslate>().Reset();
+        }
+        _transi.SetTrigger("Transi");
     }
 }

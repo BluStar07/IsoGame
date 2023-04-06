@@ -28,7 +28,7 @@ public class CubeTranslate : MonoBehaviour
     {
         if (other.CompareTag("Cube"))
         {
-            isPlaced = true;
+            _animator.enabled = true;
         }
     }
 
